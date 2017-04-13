@@ -1,0 +1,31 @@
+SOLUTION:
+
+
+* Sqoop allows acts like a middlewear which facilitates easy import and export of data from structured data stores such as
+relational databases, enterprise data warehouses, and NoSQL systems.Using Sqoop, we can provision the data from external system on to HDFS, and populate
+tables in Hive and HBase.
+
+
+
+creating a mysql data which is to be transported into hbase:
+
+
+create table employee (countrycode varchar(20),countryname varchar(20),countrycurrency varchar(20));
+insert into table employee values ("IND","India","rupee");
+insert into table employee values ("IND","India","rupee");
+insert into table employee values ("IND","India","rupee");
+insert into table employee values ("IND","India","rupee");
+insert into table employee values ("IND","India","rupee");
+insert into table employee values ("IND","India","rupee");
+
+sqoop command to transfer the data into hbase table named countryinfo:
+
+*sqoop import\ 
+    --connect jdbc:mysql://localhost/s\ 
+    --username root -P \
+    --table country 
+    --columns "countrycode,countryname,countrycurrency" \
+    --hbase-table countryinfo\ 
+    --column-family country\ 
+    --hbase-row-key countrycode\
+    -m 1\
